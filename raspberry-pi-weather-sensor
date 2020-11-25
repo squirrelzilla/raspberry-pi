@@ -1,0 +1,35 @@
+# SSH into device
+ssh pi@{device IP address}
+
+# if this is a subsequent SSH into the device you might get met with the following error:
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+# @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+# Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+# It is also possible that a host key has just been changed.
+# The fingerprint for the ECDSA key sent by the remote host is
+# SHA256:sUUckwGBFH3Xp3zk+gPFgCtHVdgrePmEGnrguvA6BZM.
+# Please contact your system administrator.
+# Add correct host key in /Users/xxxxxxxxxx/.ssh/known_hosts to get rid of this message.
+# Offending ECDSA key in /Users/xxxxxxxxxx/.ssh/known_hosts:13
+# ECDSA host key for xx.xx.xx.xx has changed and you have requested strict checking.
+# Host key verification failed.
+
+# run this command to clear that error:
+ssh-keygen -R {device IP address}
+
+# now reconnect
+ssh pi@{device IP address}
+# enter password. Hardware default is 'raspberry'.
+
+# if you continue to get errors like 'connection refused', you need to start the SSH server on Pi.
+# Link: {insert-future-youtube-video-showing-this}
+
+# to share files between your host device and the Pi via CLI, I did the following in MacOS:
+# if you don't already have brew, here it is:
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+# then install OSXFuse and SSHfs
+brew cask install osxfuse
+brew install sshfs
